@@ -1,0 +1,39 @@
+.sidebarChat{
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    cursor: pointer;
+    border-bottom: 0.5px solid black;
+    
+}
+
+.sidebarChat:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sidebarChat_info{
+    display: none;
+}
+
+
+/* not small devices  */
+
+@media (min-width: 576px) {
+    .sidebarChat_info {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 0 0 0 1rem;
+    }
+    .sidebarChat_info-roomname {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+    } 
+    .sidebarChat_info-addRoom {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 10px;
+        box-shadow: 0px 2px 20px -5px rgb(255, 60, 0);
+        font-size: 1rem;
+    }
+}
