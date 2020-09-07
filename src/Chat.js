@@ -4,6 +4,8 @@ import {useEffect, useState} from 'react'
 import './Chat.css'
 import {useParams} from 'react-router-dom'
 import db from './firebase'
+import firebase from "firebase"
+import { useStateValue } from './StateProvider'
 
 
 function Chat() {
@@ -13,6 +15,7 @@ function Chat() {
     const {roomId} = useParams();
     const [roomName, setroomName] = useState("");
     const [messages, setMessages] = useState([]);
+    const [{user}, dispatch ] = useStateValue();
 
     useEffect(() => {
         if(roomId){
@@ -28,6 +31,13 @@ function Chat() {
     const sendMessage = (e) => {
         e.preventDefault();
         console.log(input)
+
+        db.collection("rooms").doc(roomId).collection("messages").add({
+            message: input,
+            name: user.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
         setInput("")
     }
 
@@ -37,17 +47,17 @@ function Chat() {
         <Avatar src= {`https://avatars.dicebear.com/api/identicon/${seed}.svg`} />
             <div className="header_info">
                 <h3>{roomName}</h3>
-                <p>Last seen at ...</p>
+                <p>Last seen at {new Date(messages[messages.length -1 ]?.timestamp?.toDate()).toLocaleString()}</p>
             </div>
         </div>  
 
         <div className="chat_body">
         {messages.map((message) => (
-            <p className={`chat_message ${true && 'chat_receiver'}`}>
+            <p className={`chat_message ${message.name === user.displayName && 'chat_receiver'}`}>
                 <span className="chat_name">{message.name}</span>
                 {message.message}
                 <span className = "chat_timestamp">
-                   {new Date(message.timestamp?.toDate()).toUTCString()}
+                   {new Date(message.timestamp?.toDate()).toLocaleString()}
                 </span>
             </p>   
         ))}

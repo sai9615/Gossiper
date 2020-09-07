@@ -12,6 +12,14 @@ import {
 function SidebarChat({id, name, addNewRoom}) {
 
     const [seed, setSeed] = useState(" ");
+    const [messages, setMessages] = useState("")
+
+    useEffect(() => {
+        if(id){
+            db.collection('rooms').doc(id).collection('messages').orderBy("timestamp","desc").onSnapshot((snapshot) => setMessages(snapshot.docs.map((doc) => doc.data())))
+        }
+    }, [id]);
+
 
     useEffect(() => {
         setSeed(Math.floor(Math.random()*5000));
@@ -33,7 +41,7 @@ function SidebarChat({id, name, addNewRoom}) {
             <Avatar src= {`https://avatars.dicebear.com/api/identicon/${seed}.svg`} />
             <div className="sidebarChat_info">
                 <h1 className="sidebarChat_info-roomname"> {name}  </h1>
-                <p className="sidebarChat_info-lastmessage"> The name, profile_pic url and status of the user are obtained from the props via destructuring: (line 4) </p>
+                <p className="sidebarChat_info-lastmessage"> {messages[0]?.message} </p>
             </div>
         </div>
         </Link>
