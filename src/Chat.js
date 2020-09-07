@@ -2,11 +2,24 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import {useEffect, useState} from 'react'
 import './Chat.css'
+import {useParams} from 'react-router-dom'
+import db from './firebase'
+
 
 function Chat() {
 
     const [seed, setSeed] = useState(" ");
     const [input, setInput] = useState("");
+    const {roomId} = useParams();
+    const [roomName, setroomName] = useState("");
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        if(roomId){
+          db.collection('rooms').doc(roomId).onSnapshot(snapshot => (setroomName(snapshot.data().name)))   
+          db.collection('rooms').doc(roomId).collection("messages").orderBy("timestamp", "asc").onSnapshot((snapshot)=> setMessages(snapshot.docs.map((doc)=>doc.data())))  
+        }
+    }, [roomId])
 
     useEffect(() => {
         setSeed(Math.floor(Math.random()*5000));
@@ -23,19 +36,21 @@ function Chat() {
         <div className="chat_header">
         <Avatar src= {`https://avatars.dicebear.com/api/identicon/${seed}.svg`} />
             <div className="header_info">
-                <h3>Room Name</h3>
+                <h3>{roomName}</h3>
                 <p>Last seen at ...</p>
             </div>
         </div>  
 
         <div className="chat_body">
+        {messages.map((message) => (
             <p className={`chat_message ${true && 'chat_receiver'}`}>
-                <span className="chat_name">Sai Milind</span>
-                Hey Guys
+                <span className="chat_name">{message.name}</span>
+                {message.message}
                 <span className = "chat_timestamp">
-                   1:07 p.m
+                   {new Date(message.timestamp?.toDate()).toUTCString()}
                 </span>
-            </p>
+            </p>   
+        ))}
         </div>
         <div className="chat_footer">
             <form>

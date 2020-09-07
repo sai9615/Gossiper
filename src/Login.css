@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Kumbh+Sans&display=swap", rel="stylesheet");
+
+.card {
+    text-align: center;
+    width: 190px;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    margin:auto;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+  }
+
+  .logo{
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 142px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .buttons{
+      margin-top: -1px;
+  }
+  
+  .special-card {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-weight: 400;
+    color: white;
+
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  i:hover {
+    animation: shake 1.5s;
+  }
+  
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    30% {
+      transform: translate(3px, 2px) rotate(0deg);
+    }
+    50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+    }
+    90% {
+      transform: translate(1px, 2px) rotate(0deg);
+    }
+  }
+  
+  .footer {
+    position: fixed;
+    left: -10px;
+    bottom: 0;
+    width: 100%;
+    font-family: "Oxanium";
+    text-align: right;
+    color: white;
+    font-size: medium;
+  }

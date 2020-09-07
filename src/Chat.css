@@ -35,7 +35,7 @@
     width: 97.5%;
     padding : 14px;
     margin: 0 auto;
-    overflow-y: scroll;
+    overflow: auto;
  
 }
 
@@ -52,6 +52,7 @@
 
 .chat_timestamp{
     margin-left: 10px;
+    color: #fff;
     font-size: xx-small;
 }
 
@@ -75,12 +76,13 @@
 }
 
 .chat_footer{
-    width: 97%;
+    width: 97.5%;
     margin: 1rem auto;
+    padding-left: 2rem;
 }
 
 .chat_message_input{
-    width: 97%;
+    width: 97.5%;
     padding: 1rem;
     background: linear-gradient(180deg, #3d3d3d, #8a4033);;
     color: #fff;
